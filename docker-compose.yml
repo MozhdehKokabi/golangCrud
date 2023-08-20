@@ -1,0 +1,61 @@
+version: "3.2"
+
+services:
+ 
+  postgres:
+
+    image: postgres
+
+    container_name: 'postgres2'
+     
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: moonmk2004
+    ports:
+      - "5432:5432"
+    
+
+    #   MONGO_INITDB_ROOT_USERNAME: root
+
+    #   MONGO_INITDB_ROOT_PASSWORD: root
+
+    networks:
+
+      - crud_network
+
+  golang:
+
+    build: .
+
+    container_name: 'golang1'
+
+    ports:
+
+    - 6000:3000
+
+    networks:
+
+      - crud_network
+
+    environment:
+
+    - POSTGRES_HOST=postgres2
+    - POSTGRES_PORT=5432
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=moonmk2004
+    - POSTGRES_DBNAME=edu
+
+    depends_on:
+
+    - postgres
+
+networks:
+
+  crud_network:
+
+    driver: bridge
+
+
+
+

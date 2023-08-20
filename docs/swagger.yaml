@@ -1,0 +1,60 @@
+definitions:
+  models.ReqUser:
+    properties:
+      address:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: integer
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /:
+    get:
+      consumes:
+      - '*/*'
+      description: get the status of server.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Show the status of server.
+      tags:
+      - root
+  /SignUp:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user account
+      parameters:
+      - description: models.ReqUser
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.ReqUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: User Signup
+      tags:
+      - Authentication
+swagger: "2.0"
